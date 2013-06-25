@@ -4,17 +4,23 @@ server {
     root            /var/www/$host/public;
 
     location / {
-    	index       index.html index.htm index.php;
-       	try_files   $uri $uri/ /index.php?$query_string;
+        index       index.html index.htm index.php;
+        try_files   $uri $uri/ /index.php?$query_string;
     }
 
-    location ~ \.php$ {
-        #root           html;
-        fastcgi_pass   unix:/var/run/php5-fpm.sock;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include        fastcgi_params;
+    location ~ \.php(.*)$
+    {
+        # Pass the PHP files to PHP FastCGI for processing
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Check if file exists
+    if (!-e $request_filename)
+    {
+        rewrite ^/(.*)$ /index.php?/$1 last;
+        break;
     }
 }
-
-
