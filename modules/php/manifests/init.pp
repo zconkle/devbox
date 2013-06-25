@@ -23,6 +23,15 @@ class php {
         source => 'puppet:///modules/php/php.ini',
         require => Package['php5-fpm'],
     }
+
+    file { 'www.conf':
+        path => '/etc/php5/fpm/pool.d/www.conf',
+        ensure => file,
+        owner => root,
+        group => root,
+        source => 'puppet:///modules/php/www.conf',
+        require => Package['php5-fpm'],
+    }
     
     file { 'browscap.ini':
         path => '/etc/php5/browscap.ini',
