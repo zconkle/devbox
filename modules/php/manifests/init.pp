@@ -50,6 +50,7 @@ class php {
     service { 'php5-fpm':
         ensure => running,
         enable => true,
+        require => File['php.ini','www.conf'],
     } 
 
     include php::pear
