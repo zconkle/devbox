@@ -25,6 +25,7 @@ class php {
     }
 
     file { 'www.conf':
+        notify  => Service['php5-fpm'],
         path => '/etc/php5/fpm/pool.d/www.conf',
         ensure => file,
         owner => root,
