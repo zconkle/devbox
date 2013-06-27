@@ -26,6 +26,7 @@ Vagrant::configure("2") do |config|
   # network interface) by any external networks.
 
   config.vm.network :private_network, ip: "192.168.33.3"
+  config.vm.network :forwarded_port, guest: 3306, host: 3306
 
   config.vm.provision :puppet do |puppet|
      puppet.facter = { "fqdn" => "local.devbox", "hostname" => "devbox" }
