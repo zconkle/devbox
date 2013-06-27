@@ -27,15 +27,7 @@ class mysql
     { 
         "set-mysql-password":
             unless  => "mysqladmin -uroot -p$mysqlPassword status",
-            command => "mysqladmin -uroot password $mysqlPassword",
-            path    => "/bin:/usr/bin",
-            require => Service["mysql"],
-    }
-
-    exec 
-    { 
-        "set-remote-user":
-            command => "mysql --user=root --password=root < /vagrant/modules/mysql/mysql_bootstrap.sql",
+            command => "mysqladmin -uroot password $mysqlPassword | mysql --user=root --password=root < /vagrant/modules/mysql/mysql_bootstrap.sql",
             path    => "/bin:/usr/bin",
             require => Service["mysql"],
     }
