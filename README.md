@@ -42,6 +42,10 @@ The www folder is automatically synced to the VM (/var/www). This is why we clon
 * `vagrant halt --force` force shutdown if normal halt doesn't work
 * `vagrant destroy` you broke something? this will destroy the VM and reprovisions it again completely. Takes some time.
 
+## Notes
+
+* You can connect to mysql via 127.0.0.1 with user `remote` and password `remote`
+
 
 
 For more: Vagrant is [very well documented](http://docs.vagrantup.com/v2/)
