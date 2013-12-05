@@ -9,10 +9,15 @@ class php {
         require => Exec['add_repo']
     }
 
+    exec { 'php5-hotfix':
+        command => '/usr/bin/dpkg -i /vagrant/modules/php/files/libsystemd-daemon0_44-12_i386.deb',
+        require => Exec['add_repo']
+    }
+
     $packages = ['php5', 'php5-mcrypt', 'php-xml-parser', 'php5-xdebug', 'php5-mysql', 'php5-cli', 'php5-curl', 'php5-fpm', 'libssh2-1-dev', 'php-apc', 'php-pear']
     package { $packages:
         ensure => latest,
-        require => Exec['update_repo'],
+        require => [Exec['update_repo'],Exec['php5-hotfix']],
     }
 
     file { 'php.ini':
@@ -41,11 +46,6 @@ class php {
         group => root,
         source => 'puppet:///modules/php/browscap.ini',
         require => Package['php5-fpm'],
-    }
-
-    service { 'apache2':
-        ensure => stopped,
-        enable => false,
     }
 
     service { 'php5-fpm':
