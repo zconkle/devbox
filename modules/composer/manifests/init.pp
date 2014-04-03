@@ -20,7 +20,7 @@ class composer {
     }
     
     exec { 'rollback_composer_version':
-          command => '/usr/bin/composer self-update 1.0.0-alpha8',
+          command => '/usr/local/bin/composer self-update 1.0.0-alpha8',
           require => [ Exec['download_composer'], File['/usr/local/bin'],File['/usr/local/bin/composer'], ]
     }
 }
