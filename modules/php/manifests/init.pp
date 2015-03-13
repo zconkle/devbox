@@ -23,7 +23,7 @@ class php {
 	require => [Exec['update_repo'],Exec['php5-hotfix']],
     }
 
-    $packages = [ 'php5', 'php5-mcrypt', 'php-xml-parser', 'php5-xdebug', 'php5-mysqlnd', 'php5-cli', 'php5-curl', 'libssh2-1-dev', 'php-apc', 'php-pear']
+    $packages = [ 'php5', 'php5-mcrypt', 'php-xml-parser', 'php5-xdebug', 'php5-mysqlnd', 'php5-cli', 'php5-curl', 'libssh2-1-dev', 'php-apc', 'php-pear', 'php5-mongo']
     package { $packages:
         ensure => latest,
         require => [Exec['update_repo'],Exec['php5-hotfix'],Package['php5-fpm']],
