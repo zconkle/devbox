@@ -14,6 +14,10 @@ class php {
         require => Exec['add_repo']
     }
 
+    exec { 'php-unit-install':
+        command => '/usr/bin/wget https://phar.phpunit.de/phpunit.phar; /bin/chmod +x phpunit.phar; /bin/mv phpunit.phar /usr/local/bin/phpunit'
+    }
+
     package { ['php5-fpm']:
 	ensure => latest,
 	require => [Exec['update_repo'],Exec['php5-hotfix']],
