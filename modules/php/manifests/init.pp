@@ -14,12 +14,16 @@ class php {
         require => Exec['add_repo']
     }
 
+    exec { 'php-unit-install':
+        command => '/usr/bin/wget https://phar.phpunit.de/phpunit.phar; /bin/chmod +x phpunit.phar; /bin/mv phpunit.phar /usr/local/bin/phpunit'
+    }
+
     package { ['php5-fpm']:
 	ensure => latest,
 	require => [Exec['update_repo'],Exec['php5-hotfix']],
     }
 
-    $packages = [ 'php5', 'php5-mcrypt', 'php-xml-parser', 'php5-xdebug', 'php5-mysqlnd', 'php5-cli', 'php5-curl', 'libssh2-1-dev', 'php-apc', 'php-pear']
+    $packages = [ 'php5', 'php5-mcrypt', 'php-xml-parser', 'php5-xdebug', 'php5-mysqlnd', 'php5-cli', 'php5-curl', 'libssh2-1-dev', 'php-apc', 'php-pear', 'php5-mongo']
     package { $packages:
         ensure => latest,
         require => [Exec['update_repo'],Exec['php5-hotfix'],Package['php5-fpm']],

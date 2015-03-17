@@ -28,6 +28,7 @@ include git
 include vim
 include avahi-daemon
 include mysql
+include mongodb
 include php
 include nginx
 include supervisor

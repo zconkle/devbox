@@ -19,11 +19,6 @@ class php::pear {
     }
 
     # discover channels
-    exec { 'pear-channel-discover-pear-phpunit-de':
-        command => '/usr/bin/pear channel-discover pear.phpunit.de; true',
-        require => Exec['pear-config-set']
-    }
-
     exec { 'pear-channel-discover-pear-symfony-project-com':
         command => '/usr/bin/pear channel-discover pear.symfony-project.com; true',
         require => Exec['pear-config-set']
@@ -37,14 +32,6 @@ class php::pear {
     # clear cache before install phpunit
     exec { 'pear-clear-cache':
         command => '/usr/bin/pear clear-cache',
-        require => [Exec['pear-channel-discover-pear-phpunit-de'], Exec['pear-channel-discover-pear-symfony-project-com'], Exec['pear-channel-discover-components-ez-no']]
-    }
-
-    # install phpunit
-    exec { 'pear-install':
-        command => '/usr/bin/pear install -a -f phpunit/PHPUnit',
-        require => Exec['pear-clear-cache'],
-        timeout => 0,
-        tries => 10
+        require => [Exec['pear-channel-discover-pear-symfony-project-com'], Exec['pear-channel-discover-components-ez-no']]
     }
 }
